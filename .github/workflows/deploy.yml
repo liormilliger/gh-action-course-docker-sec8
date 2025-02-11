@@ -17,18 +17,19 @@ jobs:
       # env:
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb:// #check if this is failing the workflow
+      # MONGODB_CLUSTER_ADDRESS: mongodb #can be set like that because the job runs in the container as well
       MONGODB_IP_ADDRESS: 172.16.10.70
-      # MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      # MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-      MONGODB_USERNAME: root
-      MONGODB_PASSWORD: example
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      # MONGODB_USERNAME: root
+      # MONGODB_PASSWORD: example
       PORT: 27017
-    services:
-      mongodb: #can be named anything
-        image: mongo #running inside a container
-        env: #this is must be defined - read mongo documentaion in dockerhub
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: example #since this is running internally, no issue of exposing these secrets
+    # services:
+    #   mongodb: #can be named anything
+    #     image: mongo #running inside a container
+    #     env: #this is must be defined - read mongo documentaion in dockerhub
+    #       MONGO_INITDB_ROOT_USERNAME: root
+    #       MONGO_INITDB_ROOT_PASSWORD: example #since this is running internally, no issue of exposing these secrets
     steps:
       - name: Get Code
         uses: actions/checkout@v3
