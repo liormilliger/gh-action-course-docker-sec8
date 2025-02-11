@@ -17,7 +17,8 @@ jobs:
       # env:
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb #check if this is failing the workflow
-      MONGODB_CLUSTER_ADDRESS: mongodb #can be set like that because the job runs in the container as well
+      MONGODB_CLUSTER_ADDRESS: mongodb # OPTION1 can be set like that because the job runs in the container as well
+      # MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 # OPTION2 when job is not running in a container
       # MONGODB_IP_ADDRESS: 172.16.10.70
       # MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       # MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
@@ -27,6 +28,8 @@ jobs:
     services:
       mongodb: #can be named anything
         image: mongo #running inside a container
+        ports: #OPTION2 related - opening the mongodb ports
+          - 27017:27017
         env: #this is must be defined - read mongo documentaion in dockerhub
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example #since this is running internally, no issue of exposing these secrets
